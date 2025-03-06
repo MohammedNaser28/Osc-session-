@@ -1,0 +1,40 @@
+Hello New, this is your first task.
+        
+I know you think it will be easy but you are wrong.
+        
+You are very WRONG.
+        
+It's very easy :)
+Enjoy ;>
+        
+Oh, I almost forget it. it's your time now to solve the TASK:
+        
+NOTE: Write any commands you use in commands.txt.
+        
+
+ - First mission to you is making Directory in 'task_1' folder and name it my_dir.
+        
+ - Second you must create file in 'my_dir' and name it let say hmmm... your name, right (: .
+        
+ - Edit it and add something like 'I use Linux because it's better than Windows' or anything else (but I recommend the previous one).
+        
+ - Then create 2 soft (use absolute and relative path) links and one hard to your file name them anything (don't be silly and name the links 'anything' :| )
+        
+ - Then make directory name it 'links' (I know I'm very creative) in my_dir and put the links inside it.
+        
+ - Copy the directory 'links' to your home.
+        
+ - Now list the files in the links directory which in your home.
+        
+ - Ok know remember the number of hard links to file 'Your Name' and delete the links directory which in home (ok I know it strange why I'll ask you to copy something and delete it but I'm the TASK remeber?).
+        
+ - Remove the invalid links (we won't need it).
+        
+ - Make this directory in one command in task_1 'linux/(enter your linux distro)'.   'Hint: use man or --help'
+        
+Now good bye ;)
+        
+Don't forget to write your commands (Pleeeeeeeeaaaaaaaaaase add   'cd'   commands if you use relative path).
+        
+<==============================>
+
