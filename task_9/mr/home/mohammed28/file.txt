@@ -1,0 +1,13 @@
+mkdir task_1/my_dir
+touch task_1/my_dir/Mohammed.txt
+nano task_1/my_dir/Mohammed.txt
+cd task_1/my_dir/
+ln -s Mohammed.txt mohammed.txt
+ln -s ~/task_1/my_dir/Mohammed.txt mohammedAbs.txt
+ln  ~/task_1/my_dir/Mohammed.txt mohammedhard.txt
+mkdir links
+cp mohammedAbs.txt mohammed.txt mohammedhard.txt links/
+cp -R links/ ~
+lsd ~/links
+rm -r ~/links/
+rm mohammed.txt

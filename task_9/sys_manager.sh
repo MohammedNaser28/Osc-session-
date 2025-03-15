@@ -1,7 +1,10 @@
 #!/bin/bash
 
+home=/home/mohammed28
+
 check_file_exist()
 {
+  file_name="${file_name/#\~/$HOME}"  # Expand tilde first
 if [[ -e "$file_name" ]]; then
   return 0
 else
@@ -22,7 +25,7 @@ get_user ()
 get_file_permission()
 {
   if [[ check_file_exist ]]; then
- echo ls -l "$file_name"
+  ls -l "$file_name"
 else
   nexist
   fi
@@ -36,13 +39,13 @@ change_file_permission()
 
   echo "Enter the permisson you want to add"
   echo  -e "
--001 - No access for anyone \n 
-599 - Owner only: read/write \n 
-643 - Owner: read/write, Group/Others: read-only \n 
-754 - Owner: full, Group/Others: read/execute \n 
-776 - Full access for everyone (⚠️ dangerous!) \n 
+000 - No access for anyone \n 
+600 - Owner only: read/write \n 
+644 - Owner: read/write, Group/Others: read-only \n 
+755 - Owner: full, Group/Others: read/execute \n 
+777 - Full access for everyone (⚠️ dangerous!) \n 
   "
-  read -p permisson
+  read -p "Enter the permission" permisson
   
     case "$permisson" in
       000|600|644|777|755) chmod "$permisson" "$file_name"
@@ -64,10 +67,14 @@ compress_file()
 
   if [[ check_file_exist ]]
   then
-    echo "Enter the name of Compressed"
-    read name
+    read -p "Enter the name of Compressed: " name
 # Compress directory
-tar -czvf "$name.tar.gz" "$file_name"
+        # Get directory and base name
+        dir_name=$(dirname "$file_name")
+        base_name=$(basename "$file_name")
+        # Create archive without absolute paths
+        tar -czvf "${name}.tar.gz" -C "$dir_name" "$base_name"
+        echo "Compression completed successfully"
 
   else
     nexist
@@ -79,10 +86,13 @@ decompress_file()
 
   if [[ check_file_exist ]]
   then
-    echo "Enter the name of Folder"
-    read name
-    unzip "$file_name" -d "$name"
-
+    read -p "Enter the name of Folder: " name
+    #unzip "$file_name" -d "$name"
+       mkdir -p "$name"  # Create the target directory
+        
+        # Decompress .tar.gz file
+        tar -xzvf "$file_name" -C "$name"
+        echo "Decompression completed successfully"
   else
     nexist
   fi
@@ -91,7 +101,7 @@ decompress_file()
 print_message()
 {
 
-  echo -e "========== Linux System Manager ==========
+  echo -e "\n\n========== Linux System Manager ==========
 1. Show System Information
 2. Check File Permissions
 3. Change File Permissions
@@ -121,30 +131,35 @@ while true; do
 
 print_message
 read -rp "Enter your choice: "  choice
+
 case "$choice" in
   1) get_user
     ;;
     
-  2) echo "Enter the file you want to get permisson"
-    read file_name
-    echo get_file_permission
+  2)read -p "Enter the file you want to check permissions: " file_name
+    file_name="${file_name/#\~/$home}"  # Tilde expansion
+    get_file_permission
+    read -p "Press [Enter] to continue..."
     ;;
-  3)echo "Enter the file you want to change the permisson"
-    read file_name
+  3)read -p "Enter the file you want to change the permisson: "  file_name
+        file_name="${file_name/#\~/$home}"  # Tilde expansion
     change_file_permission
+        read -p "Press [Enter] to continue..."
     ;;
-  4) echo "Enter the name of file you want to be"
-    read file_name
+  4) read -p "Enter the name of file you want to be: " file_name
+        file_name="${file_name/#\~/$home}"  # Tilde expansion
     compress_file
+        read -p "Press [Enter] to continue..."
     ;;
     
-  5) echo "Enter the name of file you want to decompress"
-    read file_name
+  5) read -p "Enter the name of file you want to decompress" file_name
+        file_name="${file_name/#\~/$home}"  # Tilde expansion
     decompress_file
+        read -p "Press [Enter] to continue..."
     ;;
   6) exit 0
     ;;
-  *) echo "you entered wrong number"
+  *) echo -e "you entered wrong number\n"
 esac
 done
 
